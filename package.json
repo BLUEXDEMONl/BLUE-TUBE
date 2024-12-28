@@ -1,7 +1,7 @@
 {
   "name": "blue-tube",
   "version": "1.0.0",
-  "description": "A MINI YOU-TUBE CLONE ",
+  "description": "A MINI YOU-TUBE CLONE",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,8 +9,9 @@
   },
   "author": "",
   "license": "ISC",
-   "dependencies": {
+  "dependencies": {
     "yt-search": "^2.10.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
   }
 }

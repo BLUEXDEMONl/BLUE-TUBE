@@ -1,27 +1,29 @@
 async function searchVideos() {
   const query = document.getElementById('searchQuery').value;
-  const resultsDiv = document.getElementById('results');
 
   if (!query) {
-    showAlert('Please enter a search query.');
+    alert('Please enter a search query.');
     return;
   }
 
-  resultsDiv.innerHTML = '<p class="loading">Searching for videos...</p>';
+  document.getElementById('loader').classList.remove('hidden');
+  document.getElementById('results').innerHTML = '';
 
   try {
     const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
     const data = await response.json();
 
+    document.getElementById('loader').classList.add('hidden');
+
     if (data.error) {
-      showAlert('Error: ' + data.error);
+      alert('Error: ' + data.error);
       return;
     }
 
-    resultsDiv.innerHTML = ''; // Clear previous results
+    const resultsDiv = document.getElementById('results');
 
     if (data.videos.length === 0) {
-      resultsDiv.innerHTML = '<p class="no-results">No videos found.</p>';
+      resultsDiv.innerHTML = '<p>No videos found.</p>';
       return;
     }
 
@@ -30,26 +32,22 @@ async function searchVideos() {
       videoDiv.className = 'video';
 
       videoDiv.innerHTML = `
-        <img src="${video.thumbnail}" alt="Thumbnail of ${video.title}" class="video-thumbnail">
-        <div class="video-info">
-          <h3><a href="${video.url}" target="_blank">${video.title}</a></h3>
-          <p><i data-lucide="clock"></i> ${video.duration}</p>
-          <p><i data-lucide="eye"></i> ${video.views}</p>
-          <p><i data-lucide="calendar"></i> ${video.uploaded}</p>
-          <button onclick="playVideo('${video.url}')" class="btn play-btn">
-            <i data-lucide="play"></i> Play
-          </button>
-        </div>
+        <img src="${video.thumbnail}" alt="Thumbnail of ${video.title}">
+        <h3><a href="${video.url}" target="_blank">${video.title}</a></h3>
+        <p><i class="fas fa-clock"></i> ${video.duration}</p>
+        <p><i class="fas fa-eye"></i> ${video.views}</p>
+        <p><i class="fas fa-calendar-alt"></i> ${video.uploaded}</p>
+        <button onclick="playVideo('${video.url}')" class="play-btn">
+          <i class="fas fa-play"></i> Play
+        </button>
       `;
 
       resultsDiv.appendChild(videoDiv);
     });
-
-    // Initialize Lucide icons
-    lucide.createIcons();
   } catch (error) {
     console.error(error);
-    showAlert('An error occurred while fetching the videos.');
+    document.getElementById('loader').classList.add('hidden');
+    alert('An error occurred while fetching the videos.');
   }
 }
 
@@ -58,21 +56,25 @@ function playVideo(videoUrl) {
   window.location.href = playPageUrl;
 }
 
-function showAlert(message) {
-  const alertDiv = document.createElement('div');
-  alertDiv.className = 'alert';
-  alertDiv.textContent = message;
-  document.body.appendChild(alertDiv);
-
-  setTimeout(() => {
-    alertDiv.remove();
-  }, 3000);
+function clearSearch() {
+  document.getElementById('searchQuery').value = '';
+  document.getElementById('results').innerHTML = '';
 }
 
-// Add event listener for the Enter key
-document.getElementById('searchQuery').addEventListener('keypress', function(event) {
-  if (event.key === 'Enter') {
-    searchVideos();
+document.getElementById('themeToggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  const icon = document.querySelector('#themeToggle i');
+  if (document.body.classList.contains('dark-mode')) {
+    icon.classList.remove('fa-sun');
+    icon.classList.add('fa-moon');
+  } else {
+    icon.classList.remove('fa-moon');
+    icon.classList.add('fa-sun');
   }
 });
+
+// Set initial theme based on user's preference
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  document.body.classList.add('dark-mode');
+}
 

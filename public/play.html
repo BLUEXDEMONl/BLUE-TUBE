@@ -3,51 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Play Video</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Cool Video Player</title>
+  <link rel="stylesheet" href="play.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-  <h1>Play Video</h1>
-  <div id="videoContainer">
-    <p>Loading video...</p>
+  <div class="container">
+    <h1>Cool Video Player</h1>
+    <div id="videoContainer" class="video-container">
+      <p>Loading video...</p>
+    </div>
   </div>
-
-  <script>
-    async function fetchVideo() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const videoUrl = urlParams.get('url');
-
-      if (!videoUrl) {
-        document.getElementById('videoContainer').innerHTML = '<p>Error: No video URL provided.</p>';
-        return;
-      }
-
-      try {
-        const apiResponse = await fetch(`https://api.davidcyriltech.my.id/download/ytmp4?url=${encodeURIComponent(videoUrl)}`);
-        const data = await apiResponse.json();
-
-        if (data.status !== 200 || !data.success) {
-          document.getElementById('videoContainer').innerHTML = '<p>Error: Unable to fetch video.</p>';
-          return;
-        }
-
-        const videoHtml = `
-          <h2>${data.result.title}</h2>
-          <img src="${data.result.thumbnail}" alt="Thumbnail">
-          <video controls width="80%">
-            <source src="${data.result.download_url}" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        `;
-
-        document.getElementById('videoContainer').innerHTML = videoHtml;
-      } catch (error) {
-        console.error(error);
-        document.getElementById('videoContainer').innerHTML = '<p>Error: Unable to fetch video.</p>';
-      }
-    }
-
-    fetchVideo();
-  </script>
+  <script src="play.js"></script>
 </body>
 </html>

@@ -3,28 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BLUE-TUBE</title>
+  <title>Cool Video Search</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-  <header>
-    <h1><i class="fab fa-youtube"></i> BLUE-TUBE</h1>
-    <button id="darkModeToggle"><i class="fas fa-moon"></i></button>
-  </header>
-
-  <div class="search-container">
-    <input type="text" id="searchQuery" placeholder="Search videos..." />
-    <button onclick="searchVideos()"><i class="fas fa-search"></i></button>
+  <div class="container">
+    <h1>Cool Video Search</h1>
+    <div class="search-container">
+      <input type="text" id="searchQuery" placeholder="Enter search query" />
+      <button onclick="searchVideos()" class="btn search-btn">
+        <i data-lucide="search"></i> Search
+      </button>
+    </div>
+    <div id="results" class="results"></div>
   </div>
-
-  <div class="results" id="results"></div>
-
-  <footer>
-    <p>&copy; 2023 BLUE-TUBE. All rights reserved.</p>
-  </footer>
-
   <script src="script.js"></script>
 </body>
 </html>
-

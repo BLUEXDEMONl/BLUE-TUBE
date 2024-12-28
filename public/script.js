@@ -21,7 +21,7 @@ async function searchVideos() {
   const query = document.getElementById('searchQuery').value;
 
   if (!query) {
-    alert('Please enter a search query from the future.');
+    alert('Please enter a query to search.');
     return;
   }
 

@@ -5,14 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BLUE-TUBE</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <h1>BLUE-TUBE</h1>
-  <input type="text" id="searchQuery" placeholder="Enter search query" />
-  <button onclick="searchVideos()">Search</button>
+  <header>
+    <h1><i class="fab fa-youtube"></i> BLUE-TUBE</h1>
+    <button id="darkModeToggle"><i class="fas fa-moon"></i></button>
+  </header>
+
+  <div class="search-container">
+    <input type="text" id="searchQuery" placeholder="Search videos..." />
+    <button onclick="searchVideos()"><i class="fas fa-search"></i></button>
+  </div>
 
   <div class="results" id="results"></div>
+
+  <footer>
+    <p>&copy; 2023 BLUE-TUBE. All rights reserved.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
+

@@ -1,27 +1,20 @@
-let currentTheme = 'default';
+let darkMode = false;
 
-function toggleTheme() {
-  const root = document.documentElement;
-  if (currentTheme === 'default') {
-    root.style.setProperty('--primary-color', '#00ff00');
-    root.style.setProperty('--secondary-color', '#00ffff');
-    root.style.setProperty('--background-color', '#1a0033');
-    currentTheme = 'alternate';
-  } else {
-    root.style.setProperty('--primary-color', '#ff4500');
-    root.style.setProperty('--secondary-color', '#ff8c00');
-    root.style.setProperty('--background-color', '#000033');
-    currentTheme = 'default';
-  }
+function toggleDarkMode() {
+  darkMode = !darkMode;
+  document.body.classList.toggle('dark-mode');
+  const icon = document.querySelector('#darkModeToggle i');
+  icon.classList.toggle('fa-moon');
+  icon.classList.toggle('fa-sun');
 }
 
-document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
 
 async function searchVideos() {
   const query = document.getElementById('searchQuery').value;
 
   if (!query) {
-    alert('Please enter a search query from the future.');
+    alert('Please enter a search query.');
     return;
   }
 
@@ -33,14 +26,14 @@ async function searchVideos() {
     const data = await response.json();
 
     if (data.error) {
-      alert('Error from the future: ' + data.error);
+      alert('Error: ' + data.error);
       return;
     }
 
     resultsDiv.innerHTML = ''; // Clear previous results
 
     if (data.videos.length === 0) {
-      resultsDiv.innerHTML = '<p>No futuristic videos found.</p>';
+      resultsDiv.innerHTML = '<p>No videos found.</p>';
       return;
     }
 
@@ -49,13 +42,13 @@ async function searchVideos() {
       videoDiv.className = 'video';
 
       videoDiv.innerHTML = `
-        <img src="${video.thumbnail}" alt="Futuristic thumbnail of ${video.title}">
+        <img src="${video.thumbnail}" alt="Thumbnail of ${video.title}">
         <div class="video-info">
           <h3><a href="${video.url}" target="_blank">${video.title}</a></h3>
           <p><i class="far fa-clock"></i> ${video.duration}</p>
-          <p><i class="far fa-eye"></i> ${video.views} views</p>
-          <p><i class="far fa-calendar-alt"></i> Uploaded ${video.uploaded}</p>
-          <button onclick="playVideo('${video.url}')" class="play-button"><i class="fas fa-play"></i> Play Now</button>
+          <p><i class="far fa-eye"></i> ${video.views}</p>
+          <p><i class="far fa-calendar-alt"></i> ${video.uploaded}</p>
+          <button onclick="playVideo('${video.url}')"><i class="fas fa-play"></i> Play</button>
         </div>
       `;
 
@@ -63,7 +56,7 @@ async function searchVideos() {
     });
   } catch (error) {
     console.error(error);
-    alert('A temporal anomaly occurred while fetching the videos.');
+    alert('An error occurred while fetching the videos.');
   }
 }
 
@@ -84,24 +77,8 @@ document.getElementById('searchQuery').addEventListener('keypress', function(eve
 const searchInput = document.getElementById('searchQuery');
 searchInput.addEventListener('focus', () => {
   searchInput.style.width = '65%';
-  searchInput.style.boxShadow = '0 0 15px var(--primary-color)';
 });
 searchInput.addEventListener('blur', () => {
   searchInput.style.width = '60%';
-  searchInput.style.boxShadow = 'none';
 });
 
-// Add a cool hover effect to video cards
-document.addEventListener('mousemove', function(e) {
-  const cards = document.querySelectorAll('.video');
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    card.style.setProperty('--mouse-x', `${x}px`);
-    card.style.setProperty('--mouse-y', `${y}px`);
-  });
-});
-
-                

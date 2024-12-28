@@ -3,35 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BLUE-TUBE Ultra Cool</title>
+  <title>BLUE-TUBE</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="cyberpunk-background"></div>
-  
   <header>
-    <h1><i class="fas fa-cube"></i> BLUE-TUBE Ultra</h1>
-    <nav>
-      <button class="nav-button" onclick="showTrending()">Trending</button>
-      <button class="nav-button" onclick="showCategories()">Categories</button>
-      <button class="nav-button" onclick="showLive()">Live</button>
-    </nav>
+    <h1><i class="fab fa-youtube"></i> BLUE-TUBE</h1>
+    <button id="darkModeToggle"><i class="fas fa-moon"></i></button>
   </header>
 
   <div class="search-container">
-    <input type="text" id="searchQuery" placeholder="Discover the extraordinary..." />
-    <button onclick="searchVideos()" class="search-button"><i class="fas fa-search"></i></button>
+    <input type="text" id="searchQuery" placeholder="Search videos..." />
+    <button onclick="searchVideos()"><i class="fas fa-search"></i></button>
   </div>
 
-  <h2 class="section-title">Featured Videos</h2>
-  <div class="featured-videos" id="featuredVideos"></div>
-
-  <h2 class="section-title">Search Results</h2>
   <div class="results" id="results"></div>
 
   <footer>
-    <p>&copy; 2077 BLUE-TUBE Ultra. Redefining reality, one video at a time.</p>
+    <p>&copy; 2023 BLUE-TUBE. All rights reserved.</p>
   </footer>
 
   <script src="script.js"></script>
